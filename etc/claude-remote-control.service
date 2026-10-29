@@ -1,0 +1,18 @@
+# ~/.config/systemd/user/claude-remote-control.service
+[Unit]
+Description=Claude Code remote control (home base)
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+WorkingDirectory=%h/code/home-base
+ExecStart=%h/.local/bin/claude remote-control --name home-base --permission-mode default
+Restart=always
+RestartSec=15
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=default.target
